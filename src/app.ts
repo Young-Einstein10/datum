@@ -18,7 +18,9 @@ let paging = {
 };
 // ================== TABLE STATE =================
 
-const updateTableUI = (data: Data[], currentPage: number) => {
+const updateTableUI = (currentPage: number) => {
+  const data = tableData[currentPage];
+
   const tableRows = tableBody!.children;
 
   for (let index = 0; index < tableRows.length; index++) {
@@ -67,10 +69,10 @@ const fetchPageData = async (page = 1) => {
 
       setTableData(data);
 
-      updateTableUI(tableData[page], page);
+      updateTableUI(page);
     }
   } catch (error) {
-    console.log(error);
+    throw new Error(error);
   }
 };
 
@@ -79,7 +81,7 @@ const paginate = (type = "next") => {
     currentPage--;
 
     if (tableData[currentPage].length) {
-      updateTableUI(tableData[currentPage], currentPage);
+      updateTableUI(currentPage);
     }
   }
 
@@ -87,7 +89,7 @@ const paginate = (type = "next") => {
     currentPage++;
 
     if (tableData[currentPage]) {
-      updateTableUI(tableData[currentPage], currentPage);
+      updateTableUI(currentPage);
     } else {
       fetchPageData(currentPage);
     }
@@ -95,7 +97,7 @@ const paginate = (type = "next") => {
 };
 
 const startApp = async () => {
-  await fetchPageData();
+  fetchPageData();
 
   // ================== Listeners ==================
   prevBtn!.addEventListener("click", () => paginate("prev"));

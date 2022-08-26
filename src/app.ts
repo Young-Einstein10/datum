@@ -10,29 +10,30 @@ const nextBtn = document.querySelector(
   "button[data-nextbtn]"
 ) as HTMLButtonElement;
 
-// ================== ROW TEMPLATE ==================
-const getTableRow = ({ id, row, gender, age }: Data) => `
-    <tr data-entryid="${id}">
-        <td>${row}</td>
-        <td class="text-capitalize">${gender}</td>
-        <td>${age}</td>
-    </tr>
-`;
-// ================== ROW TEMPLATE ==================
-
+// ================== TABLE STATE =================
 let tableData: TableData = {};
 let currentPage = 1;
 let paging = {
   next: "",
 };
+// ================== TABLE STATE =================
 
-const updateTableUI = (data, currentPage) => {
-  const rowString = data.map((row) => getTableRow(row));
+const updateTableUI = (data: Data[], currentPage: number) => {
+  const tableRows = tableBody!.children;
 
-  tableBody!.innerHTML = rowString.join(" ");
-  labelText!.innerHTML = `Showing Page ${currentPage}`;
+  for (let index = 0; index < tableRows.length; index++) {
+    const row = tableRows[index];
 
-  // ================== Navigation ==================
+    row.setAttribute("data-entryid", data[index].id);
+    row.children[0].textContent = `${data[index].row}`;
+    row.children[1].className = "text-capitalize";
+    row.children[1].textContent = `${data[index].gender}`;
+    row.children[2].textContent = `${data[index].age}`;
+  }
+
+  labelText!.textContent = `Showing Page ${currentPage}`;
+
+  // === Navigation State ===
   if (currentPage <= 1) {
     prevBtn!.disabled = true;
   } else {
@@ -44,7 +45,7 @@ const updateTableUI = (data, currentPage) => {
   } else {
     nextBtn.disabled = false;
   }
-  // ================== Navigation ==================
+  // === Navigation State ===
 };
 
 const setTableData = (data) => {
@@ -53,34 +54,6 @@ const setTableData = (data) => {
   paging = { next: page_details.next };
 
   tableData = { ...tableData, ...rest };
-};
-
-const startApp = async () => {
-  await fetchPageData();
-
-  // ================== Listeners ==================
-  prevBtn!.addEventListener("click", () => paginate("prev"));
-  nextBtn!.addEventListener("click", () => paginate("next"));
-
-  const paginate = (type = "next") => {
-    if (type === "prev") {
-      currentPage--;
-
-      if (tableData[currentPage].length) {
-        updateTableUI(tableData[currentPage], currentPage);
-      }
-    }
-
-    if (type === "next") {
-      currentPage++;
-
-      if (tableData[currentPage]) {
-        updateTableUI(tableData[currentPage], currentPage);
-      } else {
-        fetchPageData(currentPage);
-      }
-    }
-  };
 };
 
 const fetchPageData = async (page = 1) => {
@@ -99,6 +72,34 @@ const fetchPageData = async (page = 1) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+const paginate = (type = "next") => {
+  if (type === "prev") {
+    currentPage--;
+
+    if (tableData[currentPage].length) {
+      updateTableUI(tableData[currentPage], currentPage);
+    }
+  }
+
+  if (type === "next") {
+    currentPage++;
+
+    if (tableData[currentPage]) {
+      updateTableUI(tableData[currentPage], currentPage);
+    } else {
+      fetchPageData(currentPage);
+    }
+  }
+};
+
+const startApp = async () => {
+  await fetchPageData();
+
+  // ================== Listeners ==================
+  prevBtn!.addEventListener("click", () => paginate("prev"));
+  nextBtn!.addEventListener("click", () => paginate("next"));
 };
 
 document.addEventListener("DOMContentLoaded", startApp);

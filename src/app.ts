@@ -1,4 +1,4 @@
-import { Data, TableData } from "../utils/types";
+import { TableData } from "../utils/types";
 
 const API_URL = "https://randomapi.com/api/8csrgnjw?key=LEIX-GF3O-AG7I-6J84";
 const tableBody = document.querySelector("tbody[data-sink]");
@@ -82,10 +82,6 @@ const paginate = (type = "next") => {
   console.log("Previous Page " + currentPage);
   if (type === "prev") {
     currentPage -= 1;
-
-    // if (tableData[currentPage]) {
-    //   updateTableUI(currentPage);
-    // }
 
     fetchPageData(currentPage);
   }

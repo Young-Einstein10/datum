@@ -1,5 +1,11 @@
 # Frontend Assessment
 
+[See it live!](https://user-datum.netlify.app). Also, there's some [code documentation here](./DETAILS.md)
+
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/b6e4d7e358ec4fca8d37ef58dbc99db7)](https://www.codacy.com/gh/Young-Einstein10/datum/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Young-Einstein10/datum&amp;utm_campaign=Badge_Grade) [![Netlify Status](https://api.netlify.com/api/v1/badges/36b2fbd4-2bd3-4c10-b21c-d22b338b236d/deploy-status)](https://app.netlify.com/sites/user-datum/deploys)
+
+---
+
 Build and deploy a very simple frontend app for paginated data, that does the following
 
 1.  Fetches (randomised) data from `https://randomapi.com/api/8csrgnjw?key=LEIX-GF3O-AG7I-6J84` which can be paged by appending `&page=N` where N is the page you want to fetch. E.g appending `&page=1` retrieves the first page, while `&page=4` retrieves the 4th page.

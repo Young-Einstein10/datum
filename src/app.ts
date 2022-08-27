@@ -79,9 +79,11 @@ const paginate = (type = "next") => {
   if (type === "prev") {
     currentPage -= 1;
 
-    if (tableData[currentPage]) {
-      updateTableUI(currentPage);
-    }
+    // if (tableData[currentPage]) {
+    //   updateTableUI(currentPage);
+    // }
+
+    fetchPageData(currentPage);
   }
 
   if (type === "next") {

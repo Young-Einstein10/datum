@@ -76,7 +76,7 @@ const fetchPageData = async (page = 1) => {
 
 const paginate = (type = "next") => {
   if (type === "prev") {
-    currentPage -= 2;
+    currentPage -= 1;
 
     if (tableData[currentPage].length) {
       updateTableUI(currentPage);

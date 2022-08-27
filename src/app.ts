@@ -79,7 +79,7 @@ const paginate = (type = "next") => {
   if (type === "prev") {
     currentPage -= 1;
 
-    if (tableData[currentPage].length) {
+    if (tableData[currentPage]) {
       updateTableUI(currentPage);
     }
   }

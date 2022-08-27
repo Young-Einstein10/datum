@@ -60,6 +60,10 @@ const setTableData = (data) => {
 
 const fetchPageData = async (page = 1) => {
   try {
+    if (tableData[page]) {
+      return updateTableUI(page);
+    }
+
     const response = await fetch(`${API_URL}&page=${page}`);
 
     if (response.ok) {
@@ -67,7 +71,7 @@ const fetchPageData = async (page = 1) => {
 
       setTableData(data);
 
-      updateTableUI(page);
+      return updateTableUI(page);
     }
   } catch (error) {
     throw new Error(error);
@@ -89,11 +93,7 @@ const paginate = (type = "next") => {
   if (type === "next") {
     currentPage += 1;
 
-    if (tableData[currentPage]) {
-      updateTableUI(currentPage);
-    } else {
-      fetchPageData(currentPage);
-    }
+    fetchPageData(currentPage);
   }
   console.log("Current Page " + currentPage);
 };

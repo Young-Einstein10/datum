@@ -60,9 +60,7 @@ const setTableData = (data) => {
 
 const fetchPageData = async (page = 1) => {
   try {
-    const response = await fetch(
-      page === 1 ? API_URL : `${API_URL}&page=${page}`
-    );
+    const response = await fetch(`${API_URL}&page=${page}`);
 
     if (response.ok) {
       const data = await response.json();
@@ -77,7 +75,6 @@ const fetchPageData = async (page = 1) => {
 };
 
 const paginate = (type = "next") => {
-  console.log("Previous Page: " + currentPage);
   if (type === "prev") {
     currentPage -= 1;
 
@@ -95,8 +92,6 @@ const paginate = (type = "next") => {
       fetchPageData(currentPage);
     }
   }
-
-  console.log("Current Page: " + currentPage);
 };
 
 const startApp = async () => {

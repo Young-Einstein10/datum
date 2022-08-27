@@ -77,8 +77,9 @@ const fetchPageData = async (page = 1) => {
 };
 
 const paginate = (type = "next") => {
+  console.log("Previous Page: " + currentPage);
   if (type === "prev") {
-    currentPage--;
+    currentPage -= 1;
 
     if (tableData[currentPage].length) {
       updateTableUI(currentPage);
@@ -86,7 +87,7 @@ const paginate = (type = "next") => {
   }
 
   if (type === "next") {
-    currentPage++;
+    currentPage += 1;
 
     if (tableData[currentPage]) {
       updateTableUI(currentPage);
@@ -94,6 +95,8 @@ const paginate = (type = "next") => {
       fetchPageData(currentPage);
     }
   }
+
+  // console.log("Current Page: " + currentPage);
 };
 
 const startApp = async () => {

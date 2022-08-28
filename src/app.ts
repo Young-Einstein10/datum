@@ -79,7 +79,6 @@ const fetchPageData = async (page = 1) => {
 };
 
 const paginate = (type = "next") => {
-  console.log("Previous Page " + currentPage);
   if (type === "prev") {
     currentPage -= 1;
 
@@ -91,7 +90,6 @@ const paginate = (type = "next") => {
 
     fetchPageData(currentPage);
   }
-  console.log("Current Page " + currentPage);
 };
 
 const startApp = async () => {
